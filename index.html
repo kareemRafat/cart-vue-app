@@ -116,7 +116,7 @@
                   <td>{{item.product.price}}</td>
                   <td>{{item.quantity}}</td>
                   <td>
-                    <a class="btn btn-danger" href="">Delete</a>
+                    <a class="btn btn-danger" href="" @click.prevent="deleteCartItem(item, item.product.id)">Delete</a>
                   </td>
                 </tr>
               </tbody>

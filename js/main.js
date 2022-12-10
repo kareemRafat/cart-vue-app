@@ -65,6 +65,16 @@ const app = Vue.createApp({
 		onChange(event) {
 			console.log(event.target.value);
 			this.selectedCategory = event.target.value;
+		},
+
+		deleteCartItem(item , id){
+			// find the index num of the delete cart item
+			let index = this.cart.items.findIndex(Iitem => Iitem.product.id == item.product.id);
+			this.cart.items.splice(index , 1);
+
+			// return the quantity to the product stock
+			this.products.find(product => product.id == id).stock +=  item.quantity ;
+
 		}
 
 
