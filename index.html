@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/vue.js"></script>
+	<script src="js/products.js"></script>
+</head>
+<body>
+	
+	<div id="main">
+
+		<nav class="navbar navbar-expand-lg bg-light">
+		  <div class="container">
+		    <a class="navbar-brand" href="#" @click.prevent="isCartVisible = false">Products</a>
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+		        <li class="nav-item">
+		          <a class="nav-link active" aria-current="page" href="" @click.prevent="isCartVisible = true">Cart</a>
+		        </li>
+		      </ul>
+		      <div class="d-flex" role="search">
+		        
+		      </div>
+		    </div>
+		  </div>
+		</nav>
+
+
+		<div id="products" class="container my-5" v-if="!isCartVisible">
+			<div class="row">
+				<div 
+					class="col-md-4 col-12" 
+					v-for="product in products">
+					<div class="card mb-4">
+					  <img :src="product.thumbnail" class="card-img-top" :title="product.brand">
+					  <div class="card-body" >
+					    <h5 class="card-title">{{product.title}}</h5>
+					    <p class="card-text">{{product.description}}</p>
+					    <button 
+					    	class="btn btn-primary"
+					    	:disabled="product.stock == 0"
+					    	@click="addToCart(product)"
+					    	>add to cart</button>
+					    	<div class="stock" :class="styleInStock(product)">Stock : <span >{{product.stock}}</span></div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div> <!-- end products -->
+
+		<div id="cart" class="container" v-if="isCartVisible">
+			<div class="row">
+				<div class="col-12">
+					<h1 class="mb-4"> Cart </h1>
+					<table class="table table-hover table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>id</th>
+								<th>name</th>
+								<th>price</th>
+								<th>quantity</th>
+								<th>controlls</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-if="cart.items.length == 0">
+								<td class="text-center" colspan="5"> No items in cart </td>
+							</tr>
+							<tr v-for="item in cart.items">
+								<td>{{item.product.id}}</td>
+								<td>{{item.product.title}}</td>
+								<td>{{item.product.price}}</td>
+								<td>{{item.quantity}}</td>
+								<td>
+									<a class="btn btn-danger" href="">Delete</a>
+								</td>
+							</tr>
+						</tbody>
+						<tfoot >
+							<tr v-if="cart.items.length > 0">
+								 <td colspan="5">
+									<button class="btn btn-light fw-bold disabled"> 
+										Total price : <span>{{getTotalPrice()}}</span>
+									</button> 
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div> <!-- main div -->
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
