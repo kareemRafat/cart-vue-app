@@ -4,6 +4,7 @@ const app = Vue.createApp({
 	data : () => ({
 		products : products , // from products.js file
 		isCartVisible : false ,
+		selectedCategory : 'all' ,
 		cart  : {
 			items : [] // [{product , quantity}]
 		}
@@ -20,6 +21,14 @@ const app = Vue.createApp({
 				return 'text-warning';
 			}
 		} ,
+
+		sortProductByCateogry(){
+			if (this.selectedCategory == 'all') {
+				return this.products ;
+			} else {
+				return this.products.filter(product => product.category == this.selectedCategory)
+			}
+		},
 
 		addToCart(product){
 			!this.checkIfExist(product) ?
@@ -44,9 +53,19 @@ const app = Vue.createApp({
 
 		getTotalPrice(){
 			return this.cart.items
-					.map(item => item.product.price * item.quantity)
-					.reduce((a,b) => a + b);
+							.map(item => item.product.price * item.quantity)
+							.reduce((a,b) => a + b);
 		} ,
+
+		getCategory(){
+			// get all unique categories from products array
+			var categories =  this.products.map(product => product.category);
+			return new Set(categories);
+		},
+		onChange(event){
+			console.log(event.target.value);
+			this.selectedCategory = event.target.value ;
+		}
 
 
 	},
