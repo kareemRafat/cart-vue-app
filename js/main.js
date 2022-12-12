@@ -83,6 +83,7 @@ const app = Vue.createApp({
 
 		updateLocalStorage(){
 			localStorage.setItem('cart' , JSON.stringify(this.cart));
+			localStorage.setItem('products' , JSON.stringify(this.products));
 		}
 
 	},
@@ -91,11 +92,10 @@ const app = Vue.createApp({
 		if(localStorage.getItem('cart') != null){
 			this.cart = JSON.parse(localStorage.getItem('cart'));
 		}
-	},
 
-	// updated(){
-	// 	localStorage.setItem('cart' , JSON.stringify(this.cart));
-	// 	this.cart = JSON.parse(localStorage.getItem('cart'));
-	// },
+		if(localStorage.getItem('products') != null){
+			this.products = JSON.parse(localStorage.getItem('products'));
+		}
+	},
 
 }).mount("#main");
