@@ -34,6 +34,7 @@ const app = Vue.createApp({
 			!this.checkIfExist(product) ?
 				this.addProductToCart(product) :
 				this.updateProductQuan(product);
+			this.updateLocalStorage();
 		},
 
 		checkIfExist(product) {
@@ -49,6 +50,7 @@ const app = Vue.createApp({
 		updateProductQuan(product) {
 			this.cart.items.find(item => item.product.id == product.id).quantity++;
 			product.stock--;
+
 		},
 
 		getTotalPrice() {
@@ -75,14 +77,25 @@ const app = Vue.createApp({
 			// return the quantity to the product stock
 			this.products.find(product => product.id == id).stock +=  item.quantity ;
 
-		}
+			this.updateLocalStorage();
 
+		},
+
+		updateLocalStorage(){
+			localStorage.setItem('cart' , JSON.stringify(this.cart));
+		}
 
 	},
 
 	mounted() {
+		if(localStorage.getItem('cart') != null){
+			this.cart = JSON.parse(localStorage.getItem('cart'));
+		}
+	},
 
-	}
-
+	// updated(){
+	// 	localStorage.setItem('cart' , JSON.stringify(this.cart));
+	// 	this.cart = JSON.parse(localStorage.getItem('cart'));
+	// },
 
 }).mount("#main");
