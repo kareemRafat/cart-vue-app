@@ -64,10 +64,11 @@ const app = Vue.createApp({
 			var categories = this.products.map(product => product.category);
 			return new Set(categories);
 		},
-		onChange(event) {
-			console.log(event.target.value);
-			this.selectedCategory = event.target.value;
-		},
+		
+		// onChange(event) {
+		// 	console.log(event.target.value);
+		// 	this.selectedCategory = event.target.value;
+		// },
 
 		deleteCartItem(item , id){
 			// find the index num of the delete cart item

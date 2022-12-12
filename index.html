@@ -50,7 +50,7 @@
       <div id="products" class="container my-5" v-if="!isCartVisible">
         <div class="row justify-content-end">
           <div class="col-md-3">
-            <select class="form-select mb-5" @change="onChange($event)">
+            <select class="form-select mb-5" v-model="selectedCategory">
               <option selected value="all">All Categories</option>
               <option
                 v-for="category in getCategory()"
